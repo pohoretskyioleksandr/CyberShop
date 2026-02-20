@@ -1,0 +1,202 @@
+<html lang="uk">
+
+<style>
+body {
+    color: #ffffff;
+    background-color: #212121;
+    font-family: Arial;
+    }
+.button2 {
+    display:block;
+    font-size:35px;
+    text-decoration:none; 
+    background-color:#3c3c3c;
+    color:white;
+    padding:15px;
+    margin-bottom:20px; 
+    border-radius:25px; 
+    text-align:center; 
+    margin-top: 0px;
+    transition: 0.3s ease;
+}
+
+.button2:hover {
+    transform: scale(1.15);
+    background-color: #4a4a4a;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+.video {
+  width: 400px;
+  border-radius: 20px;
+  margin-top: 40px;
+  box-shadow: 0 0 40px #a5c717;
+}
+.toggle {
+  cursor: pointer;
+  font-size: 18px;
+  color: #a5c717;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.toggle:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.arrow {
+  font-size: 12px;
+  transition: transform 0.25s ease;
+}
+.cart1 {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  background: #3c3c3c;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.25s ease;
+  z-index: 999;
+}
+.cart1:hover {
+  background: #4a4a4a;
+  transform: scale(1.08);
+}
+
+.button3 {
+  display: inline-block;
+  font-size: 26px;
+  text-decoration: none; 
+  background: #3c3c3c;
+  color: white;
+  padding: 18px 50px;
+  border-radius: 18px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.button3:hover {
+  background: #4a4a4a;
+  transform: scale(1.08);
+}
+</style>
+<div id="toast" style="
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3c3c3c;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 18px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 1000;
+">Товар успішно додано ✅</div>
+<a href="cart.html" class="cart1">
+  🛒 Відкрити кошик
+</a>
+<script>
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const existing = cart.find(item => item.id === product.id);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    product.qty = 1;
+    cart.push(product);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  showToast("Товар успішно додано ✅");
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.opacity = 1;
+
+  setTimeout(() => {
+    toast.style.opacity = 0;
+  }, 2000);
+}
+</script>
+
+<script>
+function toggleVideo() {
+  var video = document.getElementById("123");
+  var text = document.getElementById("toggleText");
+  var arrow = document.getElementById("arrow");
+
+  if (video.style.display === "none") {
+    video.style.display = "block";
+    text.textContent = "Згорнути";
+    arrow.style.transform = "rotate(180deg)";
+  } else {
+    video.style.display = "none";
+    text.textContent = "Розгорнути";
+    arrow.style.transform = "rotate(0deg)";
+  }
+}
+</script>
+
+ <h1 style="font-size: 100px; text-align: center;color: #a5c717;">
+  <b>CyberShop</b>
+</h1>
+
+<hr style="width: 50%;margin-top:-30px">
+<h2 style="font-size:50px; margin-top:60px;text-align: center;margin-top: 40px;"> Geforce RTX 4090</h2>
+
+<div style="display:flex; align-items:center; justify-content:center; gap:50px; margin-top:50px; flex-wrap: wrap;">
+    <img src="image/RTX4090.png" 
+             alt="RTX 4090" 
+             style="width:350px;margin-top:-20px;">
+    <div style="max-width:400px; font-size:18px;">
+        <p><strong>Ціна:</strong> <del>80 000 грн</del> <span style="color:#f84147;">74 499 грн</span> <span style="color:#a5c717;">(є в наявності)</span></p>
+        <p><strong>Обсяг пам'яті:</strong> 24 ГБ</p>
+        <p><strong>Мінімальна потужність БЖ:</strong> 850 Вт</p>
+        <p><strong>Додаткове живлення:</strong> 16 pin</p>
+        <p><strong>Тип пам'яті:</strong> GDDR6X</p>
+        <p><strong>Розміри:</strong> 293 × 137 × 61 мм</p>
+        <p><strong>Частота пам'яті:</strong> 21000 МГц</p>
+        <p><strong>Пропускна здатність пам'яті:</strong> ≈ 1000 Гбіт/с</p>
+        <p><strong>Форм-фактор:</strong> Дискретна (Стандартна)</p>
+        <p><strong>Країна-виробник:</strong> Китай</p>
+        <p><strong>Гарантія:</strong> 48 місяців</p>
+<div class="toggle" onclick="toggleVideo()">
+  <span id="toggleText">Розгорнути</span>
+  <span id="arrow" class="arrow">▼</span>
+</div>
+<video id="123" class="video" controls autoplay muted loop style="display:none;"> 
+  <source src="4090.mp4" type="video/mp4">
+</video>
+<button class="button3" style="margin-top:20px;"
+onclick="addToCart({
+  id: 'rtx4090',
+  name: 'Geforce RTX 4090',
+  price: 74499,
+  image: 'image/RTX4090.png'
+})">
+Додати в кошик
+</button>
+    </div>
+</div>
+
+<div style="text-align: center;">
+<hr style="width: 50%;margin-top: 50px">
+<p style="font-size:15px; margin-top: 30px">Ми знаходимось за адресою: м.Тернопіль вул.Харківська 8а </p>
+             <p style="font-size:15px">Служба підтримки: +38 (012) 345-67-89</p>
+             <p style="font-size:15px">Маєш пропозиції побажання?</p>
+             <p style="font-size:15px">Email: cybershop.ua@gmail.com</p> 
+             </div>
+

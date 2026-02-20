@@ -1,0 +1,180 @@
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Кошик — CyberShop</title>
+
+<style>
+body {
+  background-color: #212121;
+  color: #ffffff;
+  font-family: Arial;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #a5c717;
+}
+
+#cart-container {
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #2a2a2a;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.cart-item img {
+  width: 90px;
+  border-radius: 10px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.qty-btn {
+  padding: 4px 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.remove-btn {
+  background: #f84147;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.total-box {
+  text-align: center;
+  font-size: 28px;
+  margin-top: 30px;
+}
+
+.clear-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 25px;
+  font-size: 18px;
+  background: #3c3c3c;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.clear-btn:hover {
+  transform: scale(1.08);
+  background-color: #4a4a4a;
+}
+
+.empty {
+  text-align: center;
+  font-size: 22px;
+  opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🛒Ваш кошик </h1>
+
+<div id="cart-container"></div>
+
+<div class="total-box">
+  Сума: <strong><span id="total">0</span> грн</strong>
+</div>
+
+<button class="clear-btn" onclick="clearCart()">Очистити кошик</button>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const container = document.getElementById("cart-container");
+const totalEl = document.getElementById("total");
+
+function renderCart() {
+  container.innerHTML = "";
+  let total = 0;
+
+  if (cart.length === 0) {
+    container.innerHTML = "<p class='empty'>Кошик порожній 😢</p>";
+    totalEl.textContent = 0;
+    return;
+  }
+
+  cart.forEach(item => {
+    total += item.price * item.qty;
+
+    const div = document.createElement("div");
+    div.className = "cart-item";
+
+    div.innerHTML = `
+      <img src="${item.image}">
+      
+      <div class="cart-info">
+        <h3>${item.name}</h3>
+        <p>${item.price} грн</p>
+        <div>
+          <button class="qty-btn" onclick="changeQty('${item.id}', -1)">−</button>
+          <strong> ${item.qty} </strong>
+          <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+        </div>
+      </div>
+
+      <button class="remove-btn" onclick="removeItem('${item.id}')">❌</button>
+    `;
+
+    container.appendChild(div);
+  });
+
+  totalEl.textContent = total;
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+
+  item.qty += delta;
+
+  if (item.qty <= 0) {
+    cart = cart.filter(i => i.id !== id);
+  }
+
+  saveCart();
+}
+
+function removeItem(id) {
+  cart = cart.filter(item => item.id !== id);
+  saveCart();
+}
+
+function clearCart() {
+  localStorage.removeItem("cart");
+  cart = [];
+  renderCart();
+}
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+renderCart();
+</script>
+
+</body>
+</html>

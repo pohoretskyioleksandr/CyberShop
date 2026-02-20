@@ -1,0 +1,284 @@
+<html lang="uk">
+<style>
+body {
+    color: #ffffff;
+    background-color: #212121;
+    font-family: Arial;
+    }
+
+.button2 {
+    display:block;
+    font-size:30px;
+    text-decoration:none; 
+    background-color:#3c3c3c;
+    color:white;
+    padding:15px;
+    margin-bottom:20px; 
+    border-radius:25px; 
+    text-align:center; 
+    margin-top: 0px;
+    transition: 0.3s ease;
+}
+
+.button2:hover {
+    transform: scale(1.15);
+    background-color: #4a4a4a;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+.button3 {
+    display: inline-block;
+    font-size: 26px;
+    text-decoration: none; 
+    background: #3c3c3c;
+    color: white;
+    padding: 18px 50px;
+    border-radius: 18px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.button3:hover {
+    background: #4a4a4a;
+    transform: scale(1.08);
+}
+
+.cart1 {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  background: #3c3c3c;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.25s ease;
+  z-index: 999;
+}
+
+.cart1:hover {
+  background: #4a4a4a;
+  transform: scale(1.08);
+}
+.video {
+  width: 400px;
+  border-radius: 20px;
+  margin-top: 40px;
+  box-shadow: 0 0 40px #a5c717;
+}
+.arrow {
+  font-size: 12px;
+  transition: transform 0.25s ease;
+}
+.toggle {
+  cursor: pointer;
+  font-size: 18px;
+  color: #a5c717;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.toggle:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+</style>
+<div id="toast" style="
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3c3c3c;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 18px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    z-index: 1000;
+">Товар успішно додано ✅</div>
+
+<a href="cart.html" class="cart1">
+  🛒 Відкрити кошик 
+</a>
+ <h1 style="font-size: 100px; text-align: center;color: #a5c717;">
+  <b>CyberShop</b>
+</h1>
+
+<hr style="width: 50%;margin-top:-30px">
+<h2 style="font-size:50px; margin-top:60px;text-align: center;margin-top: 40px;"> Geforce RTX 3060 8gb</h2>
+<div style="display:flex; align-items:center; justify-content:center; gap:50px; margin-top:50px; flex-wrap: wrap;">
+
+    <img src="image/RTX30608gb.png" 
+             alt="RTX 3060 8gb" 
+             style="width:350px;margin-top:-120px;">
+
+    <div style="max-width:400px; font-size:18px;">
+        <p><strong>Ціна:</strong> <del>14 000 грн</del> <span style="color:#f84147;">13 499 грн</span><span style="color:#a5c717;">(є в наявності)</span></p>
+        <p><strong>Обсяг пам'яті:</strong> 12 ГБ</p>
+        <p><strong>Мінімальна потужність БЖ:</strong> 550 Вт</p>
+        <p><strong>Додаткове живлення:</strong> 8 pin</p>
+        <p><strong>Тип пам'яті:</strong> GDDR6</p>
+        <p><strong>Розміри:</strong> 198 х 121 х 39 мм</p>
+        <p><strong>Частота пам'яті:</strong> 15000 МГц</p>
+        <p><strong>Пропускна здатність пам'яті:</strong> 360 Гбіт/с</p>
+        <p><strong>Форм-фактор:</strong> Дискретна (Стандартна)</p>
+        <p><strong>Країна-виробник:</strong> Китай</p>
+        <p><strong>Гарантія:</strong> 36 місяців</p>
+        <div class="toggle" onclick="toggleVideo(this)">
+  <span id="toggleText">Розгорнути</span>
+  <span id="arrow" class="arrow">▼</span>
+</div>
+<video id="v1" class="video" controls autoplay muted loop style="display:none;"> 
+  <source src="30608gb.mp4" type="video/mp4">
+</video>
+        <button class="button3" style="margin-top:20px;"
+onclick="addToCart({
+  id: 'rtx3060_8',
+  name: 'Geforce RTX 3060 8GB',
+  price: 13499,
+  image: 'image/RTX30608gb.png'
+})">
+Додати в кошик
+</button>
+
+    </div>
+</div>
+
+<hr style="width: 50%;margin-top:40px">
+<h2 style="font-size:50px; margin-top:60px;text-align: center;margin-top: 40px;"> Geforce RTX 3060 12gb</h2>
+<div style="display:flex; align-items:center; justify-content:center; gap:50px; margin-top:50px; flex-wrap: wrap;">
+
+    <img src="image/RTX306012gb.png" 
+             alt="RTX 3060 12gb" 
+             style="width:350px;margin-top:-100px;">
+
+    <div style="max-width:400px; font-size:18px;">
+        <p><strong>Ціна:</strong> <del>15 000 грн</del> <span style="color:#f84147;">14 499 грн</span><span style="color:#a5c717;">(є в наявності)</span></p>
+        <p><strong>Обсяг пам'яті:</strong> 8 ГБ</p>
+        <p><strong>Мінімальна потужність БЖ:</strong> 550 Вт</p>
+        <p><strong>Додаткове живлення:</strong> 8 pin</p>
+        <p><strong>Тип пам'яті:</strong> GDDR6</p>
+        <p><strong>Розміри:</strong> 198 х 121 х 39 мм</p>
+        <p><strong>Частота пам'яті:</strong> 15000 МГц</p>
+        <p><strong>Пропускна здатність пам'яті:</strong> 240 Гбіт/с</p>
+        <p><strong>Форм-фактор:</strong> Дискретна (Стандартна)</p>
+        <p><strong>Країна-виробник:</strong> Китай</p>
+        <p><strong>Гарантія:</strong> 36 місяців</p>
+        <div class="toggle" onclick="toggleVideo(this)">
+  <span id="toggleText">Розгорнути</span>
+  <span id="arrow" class="arrow">▼</span>
+</div>
+<video id="v2" class="video" controls autoplay muted loop style="display:none;"> 
+  <source src="306012gb.mp4" type="video/mp4">
+</video>
+        <button class="button3" style="margin-top:20px;"
+onclick="addToCart({
+  id: 'rtx3060_12',
+  name: 'Geforce RTX 3060 12GB',
+  price: 14499,
+  image: 'image/RTX306012gb.png'
+})">
+Додати в кошик
+</button>
+
+    </div>
+</div>
+
+<hr style="width: 50%;margin-top:40px">
+<h2 style="font-size:50px; margin-top:60px;text-align: center;margin-top: 40px;"> Geforce RTX 3060 ti</h2>
+<div style="display:flex; align-items:center; justify-content:center; gap:50px; margin-top:50px; flex-wrap: wrap;">
+
+    <img src="image/RTX3060ti.png" 
+             alt="RTX 3060ti" 
+             style="width:350px;margin-top:-100px;">
+
+    <div style="max-width:400px; font-size:18px;">
+        <p><strong>Ціна:</strong> <del>17 000 грн</del> <span style="color:#f84147;">16 499 грн</span><span style="color:#a5c717;">(є в наявності)</span></p>
+        <p><strong>Обсяг пам'яті:</strong> 8 ГБ</p>
+        <p><strong>Мінімальна потужність БЖ:</strong> 600 Вт</p>
+        <p><strong>Додаткове живлення:</strong> 8 pin</p>
+        <p><strong>Тип пам'яті:</strong> GDDR6</p>
+        <p><strong>Розміри:</strong> 242 х 124 х 53 мм</p>
+        <p><strong>Частота пам'яті:</strong> 14000 МГц</p>
+        <p><strong>Пропускна здатність пам'яті:</strong> 448 Гбіт/с</p>
+        <p><strong>Форм-фактор:</strong> Дискретна (Стандартна)</p>
+        <p><strong>Країна-виробник:</strong> Китай</p>
+        <p><strong>Гарантія:</strong> 48 місяців</p>
+        <div class="toggle" onclick="toggleVideo(this)">
+  <span id="toggleText">Розгорнути</span>
+  <span id="arrow" class="arrow">▼</span>
+</div>
+<video id="v3" class="video" controls autoplay muted loop style="display:none;"> 
+  <source src="3060ti.mp4" type="video/mp4">
+</video>
+        <button class="button3" style="margin-top:20px;"
+onclick="addToCart({
+  id: 'rtx3060_ti',
+  name: 'Geforce RTX 3060 Ti',
+  price: 16499,
+  image: 'image/RTX3060ti.png'
+})">
+Додати в кошик
+</button>
+
+    </div>
+</div>
+<div style="text-align: center;">
+<hr style="width: 50%;margin-top: 50px">
+<p style="font-size:15px; margin-top: 30px">Ми знаходимось за адресою: м.Тернопіль вул.Харківська 8а </p>
+             <p style="font-size:15px">Служба підтримки: +38 (012) 345-67-89</p>
+             <p style="font-size:15px">Маєш пропозиції побажання?</p>
+             <p style="font-size:15px">Email: cybershop.ua@gmail.com</p> 
+             </div>
+<script>
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const existing = cart.find(item => item.id === product.id);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    product.qty = 1;
+    cart.push(product);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  showToast("Товар успішно додано ✅");
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.opacity = 1;
+
+  setTimeout(() => {
+    toast.style.opacity = 0;
+  }, 2000);
+}
+</script>
+<script>
+function toggleVideo(btn) {
+  const container = btn.parentElement;
+  const video = container.querySelector("video");
+  const text = btn.querySelector("#toggleText");
+  const arrow = btn.querySelector("#arrow");
+
+  if (video.style.display === "none") {
+    video.style.display = "block";
+    text.textContent = "Згорнути";
+    arrow.style.transform = "rotate(180deg)";
+  } else {
+    video.style.display = "none";
+    text.textContent = "Розгорнути";
+    arrow.style.transform = "rotate(0deg)";
+  }
+}
+</script>
+
