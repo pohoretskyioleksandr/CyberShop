@@ -5,7 +5,7 @@ body {
     color: #ffffff;
     background-color: #212121;
     font-family: Arial;
-    }
+}
 .button2 {
     display:block;
     font-size:35px;
@@ -25,12 +25,14 @@ body {
     background-color: #4a4a4a;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
+
 .video {
   width: 400px;
   border-radius: 20px;
   margin-top: 40px;
   box-shadow: 0 0 40px #a5c717;
 }
+
 .toggle {
   cursor: pointer;
   font-size: 18px;
@@ -40,6 +42,7 @@ body {
   align-items: center;
   gap: 6px;
 }
+
 .toggle:hover {
   text-decoration: underline;
   opacity: 0.8;
@@ -49,19 +52,25 @@ body {
   font-size: 12px;
   transition: transform 0.25s ease;
 }
+
 .cart1 {
-  position: fixed;
-  top: 20px;
-  right: 25px;
+  display: inline-block;   
+  text-decoration: none;   
+  font-size: 16px;
   background: #3c3c3c;
   color: white;
   padding: 12px 18px;
   border-radius: 14px;
-  text-decoration: none;
-  font-size: 16px;
+  border: none;      
+  outline: none;    
+  cursor: pointer;
   transition: 0.25s ease;
+  position: fixed;
+  top: 20px;
+  right: 25px;
   z-index: 999;
 }
+
 .cart1:hover {
   background: #4a4a4a;
   transform: scale(1.08);
@@ -80,56 +89,318 @@ body {
   cursor: pointer;
   transition: 0.25s ease;
 }
+
 .button3:hover {
   background: #4a4a4a;
   transform: scale(1.08);
 }
+
+#accountArea{
+position:fixed;
+top:20px;
+left:25px;
+text-align:left;
+}
+
+.login-btn{
+background:#3c3c3c;
+color:white;
+border:none;
+padding:10px 25px;
+font-size:18px;
+border-radius:20px;
+cursor:pointer;
+transition:0.3s ease;
+}
+
+.login-btn:hover{
+transform:scale(1.15);
+background-color:#4a4a4a;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+.login-box {
+  display: none;   
+  position: absolute;  
+  top: 80px;    
+  left: 25px;     
+  background: #2e2e2e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 250px;  
+  z-index: 1000;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.form input{
+display:block;
+width:100%;
+box-sizing:border-box;
+padding:8px;
+margin:8px 0;
+border-radius:6px;
+border:none;
+}
+
+.register-btn{
+margin-top:10px;
+padding:8px 20px;
+cursor:pointer;
+width:100%;
+}
+
+.switch{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-bottom:10px;
+}
+
+.switch span{
+cursor:pointer;
+padding:4px 8px;
+border-radius:6px;
+}
+
+.active{
+background:#3c3c3c;
+}
+
+#username{
+cursor:pointer;
+font-size:22px;
+font-weight:bold;
+}
+
+#logoutMenu{
+display:none;
+margin-top:6px;
+background:#3c3c3c;
+padding:6px 15px;
+border-radius:10px;
+cursor:pointer;
+font-size:14px;
+text-align:center;
+}
+
+#logoutMenu:hover{
+background:#4a4a4a;
+}
+
+#toast{
+position:fixed;
+top:30px;
+left:50%;
+transform:translateX(-50%);
+background-color:#3c3c3c;
+color:white;
+padding:15px 25px;
+border-radius:12px;
+font-size:18px;
+opacity:0;
+pointer-events:none;
+transition:opacity 0.5s ease;
+z-index:1000;
+}
 </style>
-<div id="toast" style="
-    position: fixed;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #3c3c3c;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-size: 18px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-    z-index: 1000;
-">Товар успішно додано ✅</div>
-<a href="cart.html" class="cart1">
-  🛒 Відкрити кошик
-</a>
+
+<div id="accountArea">
+<button id="loginButton" class="login-btn" onclick="toggleLogin()">Вхід</button>
+
+<div id="userPanel" style="display:none;">
+<div id="username" onclick="toggleLogout()"></div>
+<div id="logoutMenu" onclick="logout()">Вийти з акаунта</div>
+</div>
+</div>
+
+<div class="login-box" id="loginBox">
+
+<div class="switch">
+<span id="loginTab" class="active" onclick="switchMode('login')">Увійти</span>
+<span id="regTab" onclick="switchMode('register')">Зареєструватися</span>
+</div>
+
+<div class="form" id="loginForm">
+<input type="text" id="login_login" placeholder="Логін">
+<input type="password" id="login_password" placeholder="Пароль">
+<button class="register-btn" onclick="submitForm()">Увійти</button>
+</div>
+
+<div class="form" id="registerForm" style="display:none;">
+<input type="text" id="reg_login" placeholder="Логін">
+<input type="email" id="reg_email" placeholder="Email">
+<input type="password" id="reg_password" placeholder="Пароль">
+<input type="password" id="reg_password2" placeholder="Повторіть пароль">
+<button class="register-btn" onclick="submitForm()">Зареєструватися</button>
+</div>
+
+</div>
+
+<div id="toast">Товар успішно додано ✅</div>
+
+<button class="cart1" onclick="openCart()">🛒 Відкрити кошик</button>
+
 <script>
+
+let mode="login";
+
+function toggleLogin(){
+let box=document.getElementById("loginBox");
+box.style.display=(box.style.display==="block")?"none":"block";
+switchMode("login");
+}
+
+function switchMode(type){
+
+mode=type;
+
+document.getElementById("loginTab").classList.remove("active");
+document.getElementById("regTab").classList.remove("active");
+
+if(type==="login"){
+document.getElementById("loginTab").classList.add("active");
+document.getElementById("loginForm").style.display="block";
+document.getElementById("registerForm").style.display="none";
+}
+else{
+document.getElementById("regTab").classList.add("active");
+document.getElementById("loginForm").style.display="none";
+document.getElementById("registerForm").style.display="block";
+}
+
+}
+
+function submitForm(){
+
+if(mode==="register"){
+
+let login=document.getElementById("reg_login").value.trim();
+let email=document.getElementById("reg_email").value.trim();
+let password=document.getElementById("reg_password").value;
+let password2=document.getElementById("reg_password2").value;
+
+if(!login||!email||!password||!password2){
+showToast("Заповніть усі поля!");
+return;
+}
+
+if(password!==password2){
+showToast("Паролі не співпадають!");
+return;
+}
+
+localStorage.setItem("user_login",login);
+localStorage.setItem("user_email",email);
+localStorage.setItem("user_password",password);
+
+showToast("Ви успішно зареєструвалися. Тепер увійдіть.");
+
+switchMode("login");
+
+}
+
+else{
+
+let login=document.getElementById("login_login").value.trim();
+let password=document.getElementById("login_password").value;
+
+let savedLogin=localStorage.getItem("user_login");
+let savedPassword=localStorage.getItem("user_password");
+
+if(login===savedLogin && password===savedPassword){
+
+localStorage.setItem("logged_user",login);
+
+document.getElementById("loginButton").style.display="none";
+document.getElementById("userPanel").style.display="block";
+document.getElementById("username").innerText=login;
+document.getElementById("loginBox").style.display="none";
+
+}
+else{
+showToast("Невірний логін або пароль!");
+}
+
+}
+
+}
+
+function toggleLogout(){
+let menu=document.getElementById("logoutMenu");
+menu.style.display=(menu.style.display==="block")?"none":"block";
+}
+
+function logout(){
+localStorage.removeItem("logged_user");
+document.getElementById("loginButton").style.display="inline-block";
+document.getElementById("userPanel").style.display="none";
+document.getElementById("logoutMenu").style.display="none";
+}
+
+function openCart(){
+
+let logged=localStorage.getItem("logged_user");
+
+if(!logged){
+showToast("Спочатку увійдіть в акаунт");
+return;
+}
+
+window.location.href="cart.html";
+
+}
+
+function showToast(message){
+
+let toast=document.getElementById("toast");
+
+toast.textContent=message;
+toast.style.opacity="1";
+
+setTimeout(()=>{
+toast.style.opacity="0";
+},2000);
+
+}
+
+window.onload=function(){
+
+let logged=localStorage.getItem("logged_user");
+
+if(logged){
+
+document.getElementById("loginButton").style.display="none";
+document.getElementById("userPanel").style.display="block";
+document.getElementById("username").innerText=logged;
+
+}
+
+}
+
+</script>
+
+<script>
+
 function addToCart(product) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const existing = cart.find(item => item.id === product.id);
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    product.qty = 1;
-    cart.push(product);
-  }
+const existing = cart.find(item => item.id === product.id);
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-
-  showToast("Товар успішно додано ✅");
+if(existing){
+showToast("Цей товар вже додано у кошик");
+return;
 }
 
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.style.opacity = 1;
+product.qty = 1;
+cart.push(product);
 
-  setTimeout(() => {
-    toast.style.opacity = 0;
-  }, 2000);
+localStorage.setItem("cart", JSON.stringify(cart));
+
+showToast("Товар успішно додано ✅");
+
 }
+
 </script>
 
 <script>
@@ -150,53 +421,64 @@ function toggleVideo() {
 }
 </script>
 
- <h1 style="font-size: 100px; text-align: center;color: #a5c717;">
-  <b>CyberShop</b>
+<h1 style="font-size: 100px; text-align: center;color: #a5c717;">
+<b>CyberShop</b>
 </h1>
 
 <hr style="width: 50%;margin-top:-30px">
-<h2 style="font-size:50px; margin-top:60px;text-align: center;margin-top: 40px;"> Geforce RTX 4090</h2>
 
-<div style="display:flex; align-items:center; justify-content:center; gap:50px; margin-top:50px; flex-wrap: wrap;">
-    <img src="image/RTX4090.png" 
-             alt="RTX 4090" 
-             style="width:350px;margin-top:-20px;">
-    <div style="max-width:400px; font-size:18px;">
-        <p><strong>Ціна:</strong> <del>80 000 грн</del> <span style="color:#f84147;">74 499 грн</span> <span style="color:#a5c717;">(є в наявності)</span></p>
-        <p><strong>Обсяг пам'яті:</strong> 24 ГБ</p>
-        <p><strong>Мінімальна потужність БЖ:</strong> 850 Вт</p>
-        <p><strong>Додаткове живлення:</strong> 16 pin</p>
-        <p><strong>Тип пам'яті:</strong> GDDR6X</p>
-        <p><strong>Розміри:</strong> 293 × 137 × 61 мм</p>
-        <p><strong>Частота пам'яті:</strong> 21000 МГц</p>
-        <p><strong>Пропускна здатність пам'яті:</strong> ≈ 1000 Гбіт/с</p>
-        <p><strong>Форм-фактор:</strong> Дискретна (Стандартна)</p>
-        <p><strong>Країна-виробник:</strong> Китай</p>
-        <p><strong>Гарантія:</strong> 48 місяців</p>
+<h2 style="font-size:50px;text-align:center;margin-top:40px;">Geforce RTX 4090</h2>
+
+<div style="display:flex;align-items:center;justify-content:center;gap:50px;margin-top:50px;flex-wrap:wrap;">
+
+<img src="image/RTX4090.png" alt="RTX 4090" style="width:350px;margin-top:-20px;">
+
+<div style="max-width:400px;font-size:18px;">
+
+<p><strong>Ціна:</strong> <del>80 000 грн</del> <span style="color:#f84147;">74 499 грн</span> <span style="color:#a5c717;">(є в наявності)</span></p>
+
+<p><strong>Обсяг пам'яті:</strong> 24 ГБ</p>
+<p><strong>Мінімальна потужність БЖ:</strong> 850 Вт</p>
+<p><strong>Додаткове живлення:</strong> 16 pin</p>
+<p><strong>Тип пам'яті:</strong> GDDR6X</p>
+<p><strong>Розміри:</strong> 293 × 137 × 61 мм</p>
+<p><strong>Частота пам'яті:</strong> 21000 МГц</p>
+<p><strong>Пропускна здатність пам'яті:</strong> ≈ 1000 Гбіт/с</p>
+<p><strong>Форм-фактор:</strong> Дискретна (Стандартна)</p>
+<p><strong>Країна-виробник:</strong> Китай</p>
+<p><strong>Гарантія:</strong> 48 місяців</p>
+
 <div class="toggle" onclick="toggleVideo()">
-  <span id="toggleText">Розгорнути</span>
-  <span id="arrow" class="arrow">▼</span>
+<span id="toggleText">Розгорнути</span>
+<span id="arrow" class="arrow">▼</span>
 </div>
+
 <video id="123" class="video" controls autoplay muted loop style="display:none;"> 
-  <source src="4090.mp4" type="video/mp4">
+<source src="4090.mp4" type="video/mp4">
 </video>
+
 <button class="button3" style="margin-top:20px;"
 onclick="addToCart({
-  id: 'rtx4090',
-  name: 'Geforce RTX 4090',
-  price: 74499,
-  image: 'image/RTX4090.png'
+id:'rtx4090',
+name:'Geforce RTX 4090',
+price:74499,
+image:'image/RTX4090.png'
 })">
+
 Додати в кошик
+
 </button>
-    </div>
+
+</div>
 </div>
 
-<div style="text-align: center;">
-<hr style="width: 50%;margin-top: 50px">
-<p style="font-size:15px; margin-top: 30px">Ми знаходимось за адресою: м.Тернопіль вул.Харківська 8а </p>
-             <p style="font-size:15px">Служба підтримки: +38 (012) 345-67-89</p>
-             <p style="font-size:15px">Маєш пропозиції побажання?</p>
-             <p style="font-size:15px">Email: cybershop.ua@gmail.com</p> 
-             </div>
+<div style="text-align:center;">
 
+<hr style="width:50%;margin-top:50px">
+
+<p style="font-size:15px;margin-top:30px">Ми знаходимось за адресою: м.Тернопіль вул.Харківська 8а</p>
+<p style="font-size:15px">Служба підтримки: +38 (012) 345-67-89</p>
+<p style="font-size:15px">(Коментар можна залишити на старотвій сторінці)</p>
+<p style="font-size:15px">Email: cybershop.ua@gmail.com</p>
+
+</div>
