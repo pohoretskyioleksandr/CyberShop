@@ -80,6 +80,24 @@ h1 {
   background-color: #4a4a4a;
 }
 
+.buy-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 12px 25px;
+  font-size: 18px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.buy-btn:hover {
+  transform: scale(1.08);
+  background-color: #2ecc71;
+}
+
 .empty {
   text-align: center;
   font-size: 22px;
@@ -90,7 +108,7 @@ h1 {
 
 <body>
 
-<h1>🛒Ваш кошик </h1>
+<h1>🛒Ваш кошик</h1>
 
 <div id="cart-container"></div>
 
@@ -99,6 +117,7 @@ h1 {
 </div>
 
 <button class="clear-btn" onclick="clearCart()">Очистити кошик</button>
+<button class="buy-btn" onclick="buyCart()">Купити</button>
 
 <script>
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -171,6 +190,16 @@ function clearCart() {
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
+}
+
+function buyCart() {
+  if (cart.length === 0) {
+    alert("Кошик порожній");
+    return;
+  }
+
+  alert("Дякуємо за покупку 🛒");
+  clearCart();
 }
 
 renderCart();
