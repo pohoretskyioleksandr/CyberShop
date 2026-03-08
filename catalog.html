@@ -1,57 +1,353 @@
 <html lang="uk">
+<head>
+<title>Каталог — CyberShop</title>
+
 <style>
-body {
-    color: #ffffff;
-    background-color: #212121;
-    text-align: center;
-    font-family: Arial;
-.button1 {
-    display: inline-block;
-    background-color: #3c3c3c;
-    color: white;
-    text-decoration: none;
-    font-size: 40px;
-    padding: 15px 80px;
-    border-radius: 40px;
-    margin: 0 20px;
-    margin-top: 40px;
-    transition: 0.3s ease;
+
+body{
+color:#ffffff;
+background-color:#212121;
+text-align:center;
+font-family:Arial;
 }
 
-.button1:hover {
-    transform: scale(1.15);
-    background-color: #4a4a4a;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-}
-
-.cart1 {
-  position: fixed;
-  top: 20px;
-  right: 25px;
-  background: #3c3c3c;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 14px;
-  text-decoration: none;
-  font-size: 16px;
-  transition: 0.25s ease;
-  z-index: 999;
+.button1{
+display:inline-block;
+background-color:#3c3c3c;
+color:white;
+text-decoration:none;
+font-size:40px;
+padding:15px 80px;
+border-radius:40px;
+margin:20px;
+transition:0.3s ease;
 }
 
-.cart1:hover {
-  background: #4a4a4a;
-  transform: scale(1.08);
+.button1:hover{
+transform:scale(1.15);
+background-color:#4a4a4a;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
+
+.cart1{
+position:fixed;
+top:20px;
+right:25px;
+background:#3c3c3c;
+color:white;
+padding:12px 18px;
+border-radius:14px;
+text-decoration:none;
+font-size:16px;
+transition:0.25s ease;
+}
+
+.cart1:hover{
+background:#4a4a4a;
+transform:scale(1.08);
+}
+
+#accountArea{
+position:fixed;
+top:20px;
+left:25px;
+text-align:left;
+}
+
+.login-btn{
+background:#3c3c3c;
+color:white;
+border:none;
+padding:10px 25px;
+font-size:18px;
+border-radius:20px;
+cursor:pointer;
+transition:0.3s ease;
+}
+
+.login-btn:hover{
+transform:scale(1.15);
+background-color:#4a4a4a;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+.login-box{
+display:none;
+position:absolute;
+top:60px;
+left:0;
+background:#2e2e2e;
+padding:20px;
+border-radius:10px;
+width:250px;
+}
+
+.form input{
+display:block;
+width:100%;
+box-sizing:border-box;
+padding:8px;
+margin:8px 0;
+border-radius:6px;
+border:none;
+}
+
+.register-btn{
+margin-top:10px;
+padding:8px 20px;
+cursor:pointer;
+width:100%;
+}
+
+.switch{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-bottom:10px;
+}
+
+.switch span{
+cursor:pointer;
+padding:4px 8px;
+border-radius:6px;
+}
+
+.active{
+background:#3c3c3c;
+}
+
+#username{
+cursor:pointer;
+font-size:22px;
+font-weight:bold;
+}
+
+#logoutMenu{
+display:none;
+margin-top:6px;
+background:#3c3c3c;
+padding:6px 15px;
+border-radius:10px;
+cursor:pointer;
+font-size:14px;
+text-align:center;
+}
+
+#logoutMenu:hover{
+background:#4a4a4a;
+}
+
+#toast{
+position:fixed;
+top:30px;
+left:50%;
+transform:translateX(-50%);
+background-color:#3c3c3c;
+color:white;
+padding:15px 25px;
+border-radius:12px;
+font-size:18px;
+opacity:0;
+pointer-events:none;
+transition:opacity 0.5s ease;
+}
+
 </style>
-<a href="cart.html" class="cart1">
-  🛒 Відкрити кошик
-</a>
-<h1 style="font-size: 100px;color: #a5c717;"><b>Каталог</b></h1>
-<hr style="width: 50%;margin-top:-30px">
-<div class="buttons">
-    <a href="gpu.html" class="button1">Відеокарти</a>
-    <a href="cpu.html" class="button1">Процесори</a>
-    <a href="-.html" class="button1">-</a>
-    <a href="-.html" class="button1">-</a>
+</head>
+
+<body>
+
+<div id="accountArea">
+
+<button id="loginButton" class="login-btn" onclick="toggleLogin()">Вхід</button>
+
+<div id="userPanel" style="display:none;">
+<div id="username" onclick="toggleLogout()"></div>
+<div id="logoutMenu" onclick="logout()">Вийти з акаунта</div>
 </div>
+
+<div class="login-box" id="loginBox">
+
+<div class="switch">
+<span id="loginTab" class="active" onclick="switchMode('login')">Увійти</span>
+<span id="regTab" onclick="switchMode('register')">Зареєструватися</span>
+</div>
+
+<div class="form" id="loginForm">
+<input type="text" id="login_login" placeholder="Логін">
+<input type="password" id="login_password" placeholder="Пароль">
+<button class="register-btn" onclick="submitForm()">Увійти</button>
+</div>
+
+<div class="form" id="registerForm" style="display:none;">
+<input type="text" id="reg_login" placeholder="Логін">
+<input type="email" id="reg_email" placeholder="Email">
+<input type="password" id="reg_password" placeholder="Пароль">
+<input type="password" id="reg_password2" placeholder="Повторіть пароль">
+<button class="register-btn" onclick="submitForm()">Зареєструватися</button>
+</div>
+
+</div>
+</div>
+
+<a href="#" class="cart1" onclick="openCart()">🛒 Відкрити кошик</a>
+
+<div id="toast"></div>
+
+<h1 style="font-size:100px;color:#a5c717;"><b>Каталог</b></h1>
+
+<hr style="width:50%;margin-top:-30px">
+
+<div class="buttons">
+<a href="gpu.html" class="button1">Відеокарти</a>
+<a href="cpu.html" class="button1">Процесори</a>
+<a href="#" class="button1">-</a>
+<a href="#" class="button1">-</a>
+</div>
+
+<script>
+
+let mode="login";
+
+function toggleLogin(){
+let box=document.getElementById("loginBox");
+box.style.display=(box.style.display==="block")?"none":"block";
+switchMode("login");
+}
+
+function switchMode(type){
+
+mode=type;
+
+document.getElementById("loginTab").classList.remove("active");
+document.getElementById("regTab").classList.remove("active");
+
+if(type==="login"){
+document.getElementById("loginTab").classList.add("active");
+document.getElementById("loginForm").style.display="block";
+document.getElementById("registerForm").style.display="none";
+}
+else{
+document.getElementById("regTab").classList.add("active");
+document.getElementById("loginForm").style.display="none";
+document.getElementById("registerForm").style.display="block";
+}
+
+}
+
+function submitForm(){
+
+if(mode==="register"){
+
+let login=document.getElementById("reg_login").value.trim();
+let email=document.getElementById("reg_email").value.trim();
+let password=document.getElementById("reg_password").value;
+let password2=document.getElementById("reg_password2").value;
+
+if(!login||!email||!password||!password2){
+showToast("Заповніть усі поля!");
+return;
+}
+
+if(password!==password2){
+showToast("Паролі не співпадають!");
+return;
+}
+
+localStorage.setItem("user_login",login);
+localStorage.setItem("user_email",email);
+localStorage.setItem("user_password",password);
+
+showToast("Ви успішно зареєструвалися. Тепер увійдіть.");
+
+switchMode("login");
+
+}
+
+else{
+
+let login=document.getElementById("login_login").value.trim();
+let password=document.getElementById("login_password").value;
+
+let savedLogin=localStorage.getItem("user_login");
+let savedPassword=localStorage.getItem("user_password");
+
+if(login===savedLogin && password===savedPassword){
+
+localStorage.setItem("logged_user",login);
+
+document.getElementById("loginButton").style.display="none";
+document.getElementById("userPanel").style.display="block";
+document.getElementById("username").innerText=login;
+document.getElementById("loginBox").style.display="none";
+
+}
+else{
+showToast("Невірний логін або пароль!");
+}
+
+}
+
+}
+
+function toggleLogout(){
+
+let menu=document.getElementById("logoutMenu");
+menu.style.display=(menu.style.display==="block")?"none":"block";
+
+}
+
+function logout(){
+
+localStorage.removeItem("logged_user");
+
+document.getElementById("loginButton").style.display="inline-block";
+document.getElementById("userPanel").style.display="none";
+document.getElementById("logoutMenu").style.display="none";
+
+}
+
+function openCart(){
+
+let logged=localStorage.getItem("logged_user");
+
+if(!logged){
+showToast("Спочатку увійдіть в акаунт");
+return;
+}
+
+window.location.href="cart.html";
+
+}
+
+function showToast(message){
+
+let toast=document.getElementById("toast");
+
+toast.textContent=message;
+toast.style.opacity="1";
+
+setTimeout(()=>{
+toast.style.opacity="0";
+},2000);
+
+}
+
+window.onload=function(){
+
+let logged=localStorage.getItem("logged_user");
+
+if(logged){
+
+document.getElementById("loginButton").style.display="none";
+document.getElementById("userPanel").style.display="block";
+document.getElementById("username").innerText=logged;
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
