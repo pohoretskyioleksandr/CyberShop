@@ -151,7 +151,44 @@ opacity:0;
 pointer-events:none;
 transition:opacity 0.5s ease;
 }
+.search-box{
+margin-top:40px;
+position:relative;
+}
 
+.search-input{
+width:420px;
+padding:14px;
+font-size:18px;
+border-radius:12px;
+border:none;
+outline:none;
+background:#2e2e2e;
+color:white;
+}
+
+.search-results{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+width:420px;
+background:#2e2e2e;
+border-radius:12px;
+margin-top:5px;
+display:none;
+text-align:left;
+overflow:hidden;
+}
+
+.search-item{
+padding:12px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.search-item:hover{
+background:#3c3c3c;
+}
 </style>
 </head>
 
@@ -197,7 +234,16 @@ transition:opacity 0.5s ease;
 <h1 style="font-size:100px;color:#a5c717;"><b>Каталог</b></h1>
 
 <hr style="width:50%;margin-top:-30px">
-
+<div class="search-box" style="margin-top:20px">
+<input 
+type="text" 
+class="search-input" 
+placeholder="🔍 Пошук товару " 
+oninput="searchProducts(this.value)"
+onclick="searchProducts(this.value)"
+>
+<div id="results" class="search-results"></div>
+</div>
 <div class="buttons">
 <a href="gpu.html" class="button1">Відеокарти</a>
 <a href="cpu.html" class="button1">Процесори</a>
@@ -348,6 +394,59 @@ document.getElementById("username").innerText=logged;
 }
 
 </script>
+<script>
 
+const products = [
+{ name:"Geforce RTX 3060 8GB", link:"RTX3060.html#rtx3060_8" },
+{ name:"Geforce RTX 3060 12GB", link:"RTX3060.html#rtx3060_12" },
+{ name:"Geforce RTX 3060 Ti", link:"RTX3060.html#rtx3060_ti" },
+{ name:"Geforce RTX 4090", link:"RTX4090.html#rtx4090" }
+];
+
+function searchProducts(query){
+
+const resultsBox = document.getElementById("results");
+resultsBox.innerHTML = "";
+
+query = query.toLowerCase().trim();
+
+if(!query){
+resultsBox.style.display="none";
+return;
+}
+
+const filtered = products.filter(p =>
+p.name.toLowerCase().includes(query)
+);
+
+if(filtered.length === 0){
+resultsBox.style.display="none";
+return;
+}
+
+filtered.forEach(p => {
+
+const div = document.createElement("div");
+div.className = "search-item";
+div.innerText = p.name;
+
+div.onclick = () => {
+window.location.href = p.link;
+};
+
+resultsBox.appendChild(div);
+
+});
+
+resultsBox.style.display="block";
+}
+
+document.addEventListener("click", function(e){
+if(!e.target.closest(".search-box")){
+document.getElementById("results").style.display="none";
+}
+});
+
+</script>
 </body>
 </html>
