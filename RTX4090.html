@@ -427,7 +427,7 @@ function toggleVideo() {
 
 <hr style="width: 50%;margin-top:-30px">
 
-<h2 style="font-size:50px;text-align:center;margin-top:40px;">Geforce RTX 4090</h2>
+<h2 id="rtx4090" style="font-size:50px;text-align:center;margin-top:40px;">Geforce RTX 4090</h2>
 
 <div style="display:flex;align-items:center;justify-content:center;gap:50px;margin-top:50px;flex-wrap:wrap;">
 
@@ -482,3 +482,27 @@ image:'image/RTX4090.png'
 <p style="font-size:15px">Email: cybershop.ua@gmail.com</p>
 
 </div>
+<script>
+window.onload=function(){
+
+let logged=localStorage.getItem("logged_user");
+
+if(logged){
+document.getElementById("loginButton").style.display="none";
+document.getElementById("userPanel").style.display="block";
+document.getElementById("username").innerText=logged;
+}
+
+const hash = window.location.hash;
+
+if(hash){
+const el = document.querySelector(hash);
+if(el){
+setTimeout(()=>{
+el.scrollIntoView({behavior:"smooth"});
+},300);
+}
+}
+
+}
+</script>
